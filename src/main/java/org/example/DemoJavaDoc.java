@@ -9,7 +9,7 @@ public class DemoJavaDoc {
         var left = 1;
         var right = 2;
 
-        // Från javadoc
+        // copy paste from javadoc
 
         try (var scope = StructuredTaskScope.open()) {
 
@@ -24,17 +24,6 @@ public class DemoJavaDoc {
 
         } // close
 
-        //var x = new DemoJavaDoc().getResult(1, 2);
-
-
-    }
-
-    public MyResult getResult(int left, int right) {
-
-        var leftQuery = query(left);
-        var rightQuery = query(right);
-
-        return new MyResult(leftQuery, rightQuery);
     }
 
     private static Object query(int left) {
@@ -44,7 +33,15 @@ public class DemoJavaDoc {
     public record MyResult(Object o, Object o1) {
     }
 
-    public MyResult scopeForPresentation(int left, int right) throws InterruptedException {
+    public MyResult getResultImperative(int left, int right) {
+
+        var leftQuery = query(left);
+        var rightQuery = query(right);
+
+        return new MyResult(leftQuery, rightQuery);
+    }
+
+    public MyResult scopeForScreenshot(int left, int right) throws InterruptedException {
 
         try (var scope = StructuredTaskScope.open()) {
 
@@ -56,6 +53,10 @@ public class DemoJavaDoc {
             return new MyResult(leftQuery.get(), rightQuery.get());
         }
 
+    }
 
+    public void fixImperativeScreenshot(){
+        // make method name blue :D
+        var x = getResultImperative(1, 2);
     }
 }
