@@ -4,12 +4,11 @@ import java.util.concurrent.StructuredTaskScope;
 import java.util.concurrent.StructuredTaskScope.Subtask;
 
 public class DemoJavaDoc {
-    public static MyResult main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println(javadocCode(1, 2));
+    }
 
-        var left = 1;
-        var right = 2;
-
-        // copy paste from javadoc
+    private static MyResult javadocCode(int left, int right) throws InterruptedException {
 
         try (var scope = StructuredTaskScope.open()) {
 
@@ -26,37 +25,10 @@ public class DemoJavaDoc {
 
     }
 
-    private static Object query(int left) {
-        return null;
+    private static Object query(int param) {
+        return param * 2;
     }
 
-    public record MyResult(Object o, Object o1) {
-    }
-
-    public MyResult getResultImperative(int left, int right) {
-
-        var leftQuery = query(left);
-        var rightQuery = query(right);
-
-        return new MyResult(leftQuery, rightQuery);
-    }
-
-    public MyResult scopeForScreenshot(int left, int right) throws InterruptedException {
-
-        try (var scope = StructuredTaskScope.open()) {
-
-            var leftQuery = scope.fork(() -> query(left));
-            var rightQuery = scope.fork(() -> query(right));
-
-            scope.join();
-
-            return new MyResult(leftQuery.get(), rightQuery.get());
-        }
-
-    }
-
-    public void fixImperativeScreenshot(){
-        // make method name blue :D
-        var x = getResultImperative(1, 2);
+    public record MyResult(Object left, Object right) {
     }
 }
